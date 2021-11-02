@@ -2,7 +2,7 @@ import express from 'express';
 import { config } from 'dotenv';
 import { json, urlencoded } from 'body-parser';
 import cors from 'cors';
-import { mainRouter } from './routes';
+import { postRouter } from './routes/post-route';
 import mongoose from 'mongoose';
 
 config();
@@ -13,19 +13,13 @@ const app = express();
 app.use(json({ limit: '30mb' }));
 app.use(urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
-app.use('/api', mainRouter);
+app.use('/api/posts', postRouter);
 
-async function start() {
-  try {
-    await mongoose.connect(MONGODB_URI);
-
+mongoose
+  .connect(MONGODB_URI)
+  .then(() =>
     app.listen(PORT, () => {
-      console.log(`Server has runnig on ${PORT}`);
-    });
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-}
-
-start();
+      console.log(`Server runnig on port: ${PORT}`);
+    }),
+  )
+  .catch((err: Error) => console.error(err.message));
