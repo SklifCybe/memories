@@ -1,0 +1,11 @@
+client/node_modules
+server/node_modules
+
+client/build
+server/dist
+
+client/.env
+server/.env
+
+yarn-debug.log*
+yarn-error.log*
