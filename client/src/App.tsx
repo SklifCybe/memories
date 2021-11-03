@@ -15,7 +15,7 @@ export const App: FC = (): ReactElement => {
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
         <Toolbar>
-          <Typography variant="h1" component="h1" align="center" color="primary">
+          <Typography variant="h2" component="h1" align="center" color="primary">
             Memories
           </Typography>
           <img src={memoriesPicture} alt="memories" height="60" />
