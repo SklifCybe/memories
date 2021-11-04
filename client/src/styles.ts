@@ -5,5 +5,6 @@ export const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '15px',
+    marginBottom: '1rem',
   },
 });
