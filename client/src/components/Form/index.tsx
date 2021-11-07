@@ -3,6 +3,8 @@ import { Typography, Container, TextField, Button, Paper } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 
+import { useActions } from '../../hooks/useAction';
+
 import { useStyles } from './styles';
 
 type Values = {
@@ -44,22 +46,39 @@ const validationSchema = yup.object({
 
 export const Form: FC = (): ReactElement => {
   const classes = useStyles();
+  const { createPost } = useActions();
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values: Values) => {
       if (picture) {
-        console.log('Was submit');
+        const newPost = {
+          creator: values.creator,
+          title: values.title,
+          message: values.message,
+          tags: values.tags.split(' '),
+          selectedFile: picture,
+        };
+
+        createPost(newPost);
+
         handleClear();
       }
     },
   });
-  const [picture, setPicture] = React.useState<File | null>(null);
+  const [picture, setPicture] = React.useState<ArrayBuffer | string | null>(null);
+  const [pictureName, setPictureName] = React.useState('');
 
   const handlePicture = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files);
     if (event.target.files) {
-      setPicture(event.target.files[0]);
+      const file = event.target.files[0];
+      setPictureName(file.name);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setPicture(reader.result);
+      };
+
       event.target.value = '';
       formik.values.pictureMsg = '1';
     }
@@ -125,7 +144,7 @@ export const Form: FC = (): ReactElement => {
           </Button>
           {picture ? (
             <Typography className={classes.field} variant="body2">
-              {picture.name}
+              {pictureName}
             </Typography>
           ) : (
             <Typography className={classes.field} variant="body2" color="red">

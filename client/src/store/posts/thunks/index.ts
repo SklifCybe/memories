@@ -17,7 +17,7 @@ export const createPost = (post: Post) => async (dispatch: DispatchType) => {
   try {
     const { data }: { data: Post } = await postsApi.createPost(post);
     dispatch(createPostAC(data));
-  } catch (err) {
+  } catch (err) { 
     if (err instanceof Error) {
       console.error(err.message);
     }
