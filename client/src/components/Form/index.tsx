@@ -57,7 +57,7 @@ export const Form: FC = (): ReactElement => {
           title: values.title,
           message: values.message,
           tags: values.tags.split(' '),
-          selectedFile: picture,
+          selectedFile: picture.toString(),
         };
 
         createPost(newPost);
@@ -140,7 +140,13 @@ export const Form: FC = (): ReactElement => {
           />
           <Button className={classes.btnField} variant="outlined" component="label" fullWidth>
             Select a File
-            <input type="file" name="picture" onChange={handlePicture} hidden />
+            <input
+              type="file"
+              name="picture"
+              accept=".png, .jpg, .jpeg"
+              onChange={handlePicture}
+              hidden
+            />
           </Button>
           {picture ? (
             <Typography className={classes.field} variant="body2">

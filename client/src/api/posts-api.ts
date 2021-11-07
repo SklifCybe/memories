@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Post } from '../store/posts/types';
+import { PostType } from '../store/posts/types';
 
 class PostsApi {
   private ENDPOINT = 'http://localhost:5050/api/posts';
@@ -9,7 +9,7 @@ class PostsApi {
     return axios.get(this.ENDPOINT);
   }
 
-  public createPost(post: Post) {
+  public createPost(post: PostType) {
     return axios.post(this.ENDPOINT, post);
   }
 }
