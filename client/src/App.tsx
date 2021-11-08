@@ -1,14 +1,16 @@
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { AppBar, Toolbar, Container, Grow, Typography, Grid } from '@mui/material';
 
 import { Form } from './components/Form';
 import { Posts } from './components/Posts';
+import { PostType } from './store/posts/types';
 
 import { useStyles } from './styles';
 
 import memoriesPicture from './images/memories.png';
 
 export const App: FC = (): ReactElement => {
+  const [selectedPost, setSelectedPost] = React.useState<PostType | null>(null);
   const classes = useStyles();
 
   return (

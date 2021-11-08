@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 5050;
 const MONGODB_URI = process.env.MONGODB_URI || '';
 const app = express();
 
+app.use(express.json());
 app.use(json({ limit: '30mb' }));
 app.use(urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());

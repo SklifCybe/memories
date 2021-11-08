@@ -30,3 +30,22 @@ export const createPost = async (req: Request, res: Response) => {
     }
   }
 };
+
+export const updatePost = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const post: Post = req.body.post;
+
+    if (!post) {
+      throw new Error('No the post.');
+    }
+
+    await PostMessage.findByIdAndUpdate(id, { ...post }, { new: true });
+
+    res.status(200).json({ message: 'Successfull update.' });
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(404).json({ message: err.message });
+    }
+  }
+};

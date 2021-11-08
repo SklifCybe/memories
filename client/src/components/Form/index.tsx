@@ -122,8 +122,6 @@ export const Form: FC = (): ReactElement => {
             value={formik.values.message}
             onChange={formik.handleChange}
             label="Message"
-            multiline
-            rows="4"
             fullWidth
             error={formik.touched.message && Boolean(formik.errors.message)}
             helperText={formik.touched.message && formik.errors.message}
@@ -132,7 +130,7 @@ export const Form: FC = (): ReactElement => {
             className={classes.field}
             name="tags"
             value={formik.values.tags}
-            onChange={formik.handleChange}
+            onChange={formik.handleChange}  
             label="Tags"
             fullWidth
             error={formik.touched.tags && Boolean(formik.errors.tags)}

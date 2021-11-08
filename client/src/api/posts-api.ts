@@ -12,6 +12,10 @@ class PostsApi {
   public createPost(post: PostType) {
     return axios.post(this.ENDPOINT, post);
   }
+
+  public updatePost(id: string, post: PostType) {
+    return axios.patch(`${this.ENDPOINT}/${id}`, post);
+  }
 }
 
 export const postsApi = new PostsApi();

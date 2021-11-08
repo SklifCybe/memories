@@ -5,17 +5,16 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useAction';
 import { Post } from './Post';
 
-
 export const Posts: FC = (): ReactElement => {
   const posts = useTypedSelector(({ posts }) => posts.posts);
   const { getPosts } = useActions();
 
   React.useEffect(() => {
     getPosts();
-  }, []);
+  }, [getPosts]);
 
   return !posts?.length ? (
-    <CircularProgress />
+    <CircularProgress color="secondary" />
   ) : (
     <Grid container alignItems="stretch" spacing={3}>
       {posts.map((post) => (

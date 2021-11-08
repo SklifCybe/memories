@@ -1,4 +1,4 @@
-import { ActionsType, GET_POSTS, CREATE_POST, initialStateType } from '../types';
+import { ActionsType, GET_POSTS, CREATE_POST, UPDATE_POST, initialStateType } from '../types';
 
 const initialState: initialStateType = {
   posts: [],
@@ -15,6 +15,13 @@ export const postReducer = (state = initialState, action: ActionsType): initialS
       return {
         ...state,
         posts: [...state.posts, action.payload],
+      };
+    case UPDATE_POST:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload.id ? action.payload.updatePost : post,
+        ),
       };
     default:
       return state;
