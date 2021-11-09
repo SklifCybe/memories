@@ -14,7 +14,7 @@ class PostsApi {
   }
 
   public updatePost(id: string, post: PostType) {
-    return axios.patch(`${this.ENDPOINT}/${id}`, post);
+    return axios.patch(`${this.ENDPOINT}/${id}`, { post });
   }
 }
 

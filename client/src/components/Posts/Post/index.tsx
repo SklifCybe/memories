@@ -12,9 +12,10 @@ import { useStyles } from './styles';
 
 type PostProps = {
   post: PostType;
+  setSelectedPost: (post: PostType) => void;
 };
 
-export const Post: FC<PostProps> = ({ post }): ReactElement => {
+export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const classes = useStyles();
 
   return (
@@ -30,7 +31,7 @@ export const Post: FC<PostProps> = ({ post }): ReactElement => {
           <Typography gutterBottom variant="body2" color="text.secondary" component="div">
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <IconButton size="small" color="primary">
+          <IconButton size="small" color="primary" onClick={() => setSelectedPost(post)}>
             <MoreHorizIcon />
           </IconButton>
         </div>

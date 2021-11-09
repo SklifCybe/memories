@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useActions } from '../../hooks/useAction';
+import { PostType } from '../../store/posts/types';
 
 import { useStyles } from './styles';
 
@@ -44,26 +45,41 @@ const validationSchema = yup.object({
   pictureMsg: yup.string().required('Picture is required'),
 });
 
-export const Form: FC = (): ReactElement => {
+type FormProps = {
+  setSelectedPost: (post: PostType | null) => void;
+  selectedPost: PostType | null;
+};
+
+export const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement => {
   const classes = useStyles();
-  const { createPost } = useActions();
+  const { createPost, updatePost } = useActions();
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values: Values) => {
+      let newPost = null;
       if (picture) {
-        const newPost = {
+        newPost = {
           creator: values.creator,
           title: values.title,
           message: values.message,
           tags: values.tags.split(' '),
           selectedFile: picture.toString(),
         };
-
         createPost(newPost);
+      } else {
+        newPost = {
+          creator: values.creator,
+          title: values.title,
+          message: values.message,
+          tags: values.tags.split(' '),
+        };
+        if (selectedPost && selectedPost._id) {
+          updatePost(selectedPost._id, newPost);
+        }
+      } 
 
-        handleClear();
-      }
+      handleClear();
     },
   });
   const [picture, setPicture] = React.useState<ArrayBuffer | string | null>(null);
@@ -87,13 +103,26 @@ export const Form: FC = (): ReactElement => {
   const handleClear = () => {
     formik.resetForm();
     setPicture(null);
+    setSelectedPost(null);
   };
+
+  React.useEffect(() => {
+    if (selectedPost) {
+      formik.setValues({
+        creator: selectedPost.creator,
+        title: selectedPost.title,
+        message: selectedPost.message,
+        tags: selectedPost.tags.join(' '),
+        pictureMsg: '1',
+      });
+    }
+  }, [selectedPost]);
 
   return (
     <Paper>
       <Container>
         <Typography className={classes.title} variant="h6">
-          Creating a memories
+          {selectedPost ? 'Changing' : 'Creating'} a memories
         </Typography>
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -130,7 +159,7 @@ export const Form: FC = (): ReactElement => {
             className={classes.field}
             name="tags"
             value={formik.values.tags}
-            onChange={formik.handleChange}  
+            onChange={formik.handleChange}
             label="Tags"
             fullWidth
             error={formik.touched.tags && Boolean(formik.errors.tags)}

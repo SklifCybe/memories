@@ -2,16 +2,15 @@ import React, { FC, ReactElement } from 'react';
 import { CircularProgress, Grid } from '@mui/material';
 
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useAction';
+import { PostType } from '../../store/posts/types';
 import { Post } from './Post';
 
-export const Posts: FC = (): ReactElement => {
-  const posts = useTypedSelector(({ posts }) => posts.posts);
-  const { getPosts } = useActions();
+type PostsProps = {
+  setSelectedPost: (post: PostType) => void;
+};
 
-  React.useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+export const Posts: FC<PostsProps> = ({ setSelectedPost }): ReactElement => {
+  const posts = useTypedSelector(({ posts }) => posts.posts);
 
   return !posts?.length ? (
     <CircularProgress color="secondary" />
@@ -19,7 +18,7 @@ export const Posts: FC = (): ReactElement => {
     <Grid container alignItems="stretch" spacing={3}>
       {posts.map((post) => (
         <Grid item key={post._id} xs={12} sm={6}>
-          <Post post={post} />
+          <Post post={post} setSelectedPost={setSelectedPost} />
         </Grid>
       ))}
     </Grid>

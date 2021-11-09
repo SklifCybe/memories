@@ -10,7 +10,7 @@ export type PostType = {
   message: string;
   creator: string;
   tags: Array<string>;
-  selectedFile: string;
+  selectedFile?: string;
   likeCount?: number;
   createdAt?: Date;
 };
