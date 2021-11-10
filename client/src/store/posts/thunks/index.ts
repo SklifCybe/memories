@@ -1,5 +1,5 @@
 import { postsApi } from '../../../api/posts-api';
-import { getPostsAC, createPostAC, updatePostAC } from '../actions';
+import { getPostsAC, createPostAC, updatePostAC, deletePostAC, likePostAC } from '../actions';
 import { DispatchType, PostType } from '../types';
 
 export const getPosts = () => async (dispatch: DispatchType) => {
@@ -29,6 +29,28 @@ export const updatePost = (id: string, updatePost: PostType) => async (dispatch:
   try {
     await postsApi.updatePost(id, updatePost);
     dispatch(updatePostAC(id, updatePost));
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    }
+  }
+};
+
+export const deletePost = (id: string) => async (dispatch: DispatchType) => {
+  try {
+    await postsApi.deletePost(id);
+    dispatch(deletePostAC(id));
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(err.message);
+    }
+  }
+};
+
+export const likePost = (id: string) => async (dispatch: DispatchType) => {
+  try {
+    await postsApi.likePost(id);
+    dispatch(likePostAC(id));
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);

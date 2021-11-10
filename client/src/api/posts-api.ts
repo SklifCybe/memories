@@ -16,6 +16,14 @@ class PostsApi {
   public updatePost(id: string, post: PostType) {
     return axios.patch(`${this.ENDPOINT}/${id}`, { post });
   }
+
+  public deletePost(id: string) {
+    return axios.delete(`${this.ENDPOINT}/${id}`);
+  }
+
+  public likePost(id: string) {
+    return axios.patch(`${this.ENDPOINT}/likePost/${id}`);
+  }
 }
 
 export const postsApi = new PostsApi();

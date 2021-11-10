@@ -33,10 +33,10 @@ export const App: FC = (): ReactElement => {
         <Container>
           <Grid container justifyContent="space-between" alignItems="stretch">
             <Grid item xs={12} sm={7}>
-              <Posts setSelectedPost={setSelectedPost}/>
+              <Posts setSelectedPost={setSelectedPost} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form selectedPost={selectedPost} setSelectedPost={setSelectedPost}/>
+              <Form selectedPost={selectedPost} setSelectedPost={setSelectedPost} />
             </Grid>
           </Grid>
         </Container>

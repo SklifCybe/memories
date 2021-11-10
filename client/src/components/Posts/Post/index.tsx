@@ -1,12 +1,13 @@
 import { FC, ReactElement } from 'react';
 import { Card, CardMedia, CardContent, CardActions, IconButton, Typography } from '@mui/material';
+import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LikeIcon from '@mui/icons-material/ThumbUpOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHorizOutlined';
 
-import moment from 'moment';
-
 import { PostType } from '../../../store/posts/types';
+import { useActions } from '../../../hooks/useAction';
+
 import { useStyles } from './styles';
 
 type PostProps = {
@@ -16,6 +17,19 @@ type PostProps = {
 
 export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const classes = useStyles();
+  const { deletePost, likePost } = useActions();
+
+  const handleDelete = () => {
+    if (window.confirm(`Will you want to delete post ${post.title}?`) && post._id) {
+      deletePost(post._id);
+    }
+  };
+
+  const handleLike = () => {
+    if (post._id) {
+      likePost(post._id);
+    }
+  };
 
   return (
     <Card className={classes.card}>
@@ -49,7 +63,7 @@ export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => 
       </CardContent>
       <CardActions className={classes.cardAction}>
         <div className={classes.btnAction}>
-          <IconButton size="small" color="primary">
+          <IconButton size="small" color="primary" onClick={handleLike}>
             <LikeIcon />
           </IconButton>
           <Typography variant="body2" color="primary">
@@ -57,7 +71,7 @@ export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => 
           </Typography>
         </div>
         <div className={classes.btnAction}>
-          <IconButton size="small" color="primary">
+          <IconButton size="small" color="primary" onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
           <Typography variant="body2" color="primary">
