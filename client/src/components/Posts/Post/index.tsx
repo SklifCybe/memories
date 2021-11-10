@@ -1,10 +1,9 @@
 import { FC, ReactElement } from 'react';
 import { Card, CardMedia, CardContent, CardActions, IconButton, Typography } from '@mui/material';
-import {
-  DeleteOutlineOutlined as DeleteIcon,
-  ThumbUpOutlined as LikeIcon,
-  MoreHorizOutlined as MoreHorizIcon,
-} from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import LikeIcon from '@mui/icons-material/ThumbUpOutlined';
+import MoreHorizIcon from '@mui/icons-material/MoreHorizOutlined';
+
 import moment from 'moment';
 
 import { PostType } from '../../../store/posts/types';
