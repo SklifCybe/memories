@@ -1,5 +1,13 @@
 import { FC, ReactElement } from 'react';
-import { Card, CardMedia, CardContent, CardActions, IconButton, Typography } from '@mui/material';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  IconButton,
+} from '@mui/material';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LikeIcon from '@mui/icons-material/ThumbUpOutlined';
@@ -33,50 +41,64 @@ export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => 
 
   return (
     <Card className={classes.card}>
-      <CardMedia
-        component="img"
-        className={classes.picture}
-        image={post.selectedFile}
-        alt={`${post.title} picture`}
-      />
+      <div className={classes.overPicture}>
+        <Typography
+          color="#fff"
+          className={classes.creatorField}
+          gutterBottom
+          variant="h5"
+          component="div">
+          {post.creator}
+        </Typography>
+        <Typography
+          color="#fff"
+          className={classes.createdAtField}
+          gutterBottom
+          variant="body2"
+          component="div">
+          {moment(post.createdAt).fromNow()}
+        </Typography>
+        <div className={classes.horizBlockIcon}>
+          <IconButton
+            className={classes.horizIcon}
+            size="small"
+            onClick={() => setSelectedPost(post)}>
+            <MoreHorizIcon />
+          </IconButton>
+        </div>
+        <CardMedia
+          component="img"
+          className={classes.picture}
+          image={post.selectedFile}
+          alt={`${post.title} picture`}
+          width="100%"
+        />
+      </div>
       <CardContent>
         <div className={classes.overTitle}>
           <Typography gutterBottom variant="body2" color="text.secondary" component="div">
             {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <IconButton size="small" color="primary" onClick={() => setSelectedPost(post)}>
-            <MoreHorizIcon />
-          </IconButton>
         </div>
-        <Typography gutterBottom variant="body2" color="text.secondary" component="div">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
         <div className={classes.title}>
-          <Typography gutterBottom variant="h5" component="div">
-            {post.creator}
-          </Typography>
           <Typography gutterBottom variant="h5" component="div">
             {post.title}
           </Typography>
         </div>
-        <Typography variant="body1">{post.message}</Typography>
+        <Typography variant="body1" color="text.secondary">{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardAction}>
         <div className={classes.btnAction}>
-          <IconButton size="small" color="primary" onClick={handleLike}>
+          <Button size="small" color="primary" onClick={handleLike}>
             <LikeIcon />
-          </IconButton>
-          <Typography variant="body2" color="primary">
-            Like {post.likeCount}
-          </Typography>
+            &nbsp;Like {post.likeCount}&nbsp;
+          </Button>
         </div>
         <div className={classes.btnAction}>
-          <IconButton size="small" color="primary" onClick={handleDelete}>
+          <Button size="small" color="primary" onClick={handleDelete}>
             <DeleteIcon />
-          </IconButton>
-          <Typography variant="body2" color="primary">
-            Delete
-          </Typography>
+            &nbsp;Delete&nbsp;
+          </Button>
         </div>
       </CardActions>
     </Card>

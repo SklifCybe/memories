@@ -7,6 +7,10 @@ export const useStyles = makeStyles({
   },
   picture: {
     height: '180px',
+    width: '100%',
+  },
+  overPicture: {
+    position: 'relative',
   },
   overTitle: {
     display: 'flex',
@@ -25,5 +29,23 @@ export const useStyles = makeStyles({
   btnAction: {
     display: 'flex',
     alignItems: 'center',
+  },
+  creatorField: {
+    position: 'absolute',
+    top: '10px',
+    left: '20px',
+  },
+  createdAtField: {
+    position: 'absolute',
+    top: '50px',
+    left: '20px',
+  },
+  horizBlockIcon: {
+    position: 'absolute',
+    top: '10px',
+    right: '20px',
+  },
+  horizIcon: {
+    color: '#fff !important',
   },
 });
