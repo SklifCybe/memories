@@ -63,7 +63,7 @@ export const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactEle
           creator: values.creator,
           title: values.title,
           message: values.message,
-          tags: values.tags.replaceAll(',', '').split(' '),
+          tags: values.tags.replaceAll(',', ' ').split(' '),
           selectedFile: picture.toString(),
         };
         createPost(newPost);
