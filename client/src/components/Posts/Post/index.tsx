@@ -23,7 +23,7 @@ type PostProps = {
   setSelectedPost: (post: PostType) => void;
 };
 
-export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
+const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const classes = useStyles();
   const { deletePost, likePost } = useActions();
 
@@ -85,7 +85,9 @@ export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => 
             {post.title}
           </Typography>
         </div>
-        <Typography variant="body1" color="text.secondary">{post.message}</Typography>
+        <Typography variant="body1" color="text.secondary">
+          {post.message}
+        </Typography>
       </CardContent>
       <CardActions className={classes.cardAction}>
         <div className={classes.btnAction}>
@@ -104,3 +106,5 @@ export const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => 
     </Card>
   );
 };
+
+export { Post };

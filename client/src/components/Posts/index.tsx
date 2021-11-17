@@ -9,7 +9,7 @@ type PostsProps = {
   setSelectedPost: (post: PostType) => void;
 };
 
-export const Posts: FC<PostsProps> = ({ setSelectedPost }): ReactElement => {
+const Posts: FC<PostsProps> = ({ setSelectedPost }): ReactElement => {
   const posts = useTypedSelector(({ posts }) => posts.posts);
 
   return !posts?.length ? (
@@ -24,3 +24,5 @@ export const Posts: FC<PostsProps> = ({ setSelectedPost }): ReactElement => {
     </Grid>
   );
 };
+
+export { Posts };

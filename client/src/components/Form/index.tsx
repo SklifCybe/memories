@@ -50,7 +50,7 @@ type FormProps = {
   selectedPost: PostType | null;
 };
 
-export const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement => {
+const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement => {
   const classes = useStyles();
   const { createPost, updatePost } = useActions();
   const formik = useFormik({
@@ -77,7 +77,7 @@ export const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactEle
         if (selectedPost && selectedPost._id) {
           updatePost(selectedPost._id, newPost);
         }
-      } 
+      }
 
       handleClear();
     },
@@ -205,3 +205,5 @@ export const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactEle
     </Paper>
   );
 };
+
+export { Form };
