@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useStyles = makeStyles({
+const useStyles = makeStyles({
   card: {
     maxWidth: '345px',
     borderRadius: '20px !important',
@@ -49,3 +49,5 @@ export const useStyles = makeStyles({
     color: '#fff !important',
   },
 });
+
+export { useStyles };
