@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       textDecorationColor: theme.palette.primary.dark,
     },
   },
+  googleBtn: {
+    marginTop: '1rem',
+  },
 }));
 
 export { useStyles };

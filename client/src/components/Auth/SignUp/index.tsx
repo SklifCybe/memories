@@ -1,7 +1,8 @@
 import { FC, ReactElement } from 'react';
 import { Typography, TextField, Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
+
+import { signUpSchema } from '../validationSchemas';
 
 import { useStyles } from '../styles';
 
@@ -9,43 +10,19 @@ type SignUpProps = {
   switchMode: () => void;
 };
 
+const initialValues = {
+  email: '',
+  password: '',
+  repeatPassword: '',
+  firstName: '',
+  lastName: '',
+};
+
 const SignUp: FC<SignUpProps> = ({ switchMode }): ReactElement => {
   const classes = useStyles();
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      repeatPassword: '',
-      firstName: '',
-      lastName: '',
-    },
-    validationSchema: yup.object({
-      email: yup
-        .string()
-        .email('Enter a valid email')
-        .max(40, 'Email should be of maximum 40 characters length')
-        .required('Email is required'),
-      password: yup
-        .string()
-        .min(8, 'Password should be of minimum 8 characters length')
-        .max(32, 'Password should be of maximum 32 characters length')
-        .required('Password is required'),
-      repeatPassword: yup
-        .string()
-        .min(8, 'Repeat password should be of minimum 8 characters length')
-        .max(32, 'Repeat password should be of maximum 32 characters length')
-        .required('Repeat password is required'),
-      firstName: yup
-        .string()
-        .min(2, 'First name should be of minimum 8 characters length')
-        .max(32, 'First name should be of maximum 32 characters length')
-        .required('First name is required'),
-      lastName: yup
-        .string()
-        .min(2, 'Last name should be of minimum 8 characters length')
-        .max(32, 'Last name should be of maximum 32 characters length')
-        .required('Lsst name is required'),
-    }),
+    initialValues,
+    validationSchema: signUpSchema,
     onSubmit: (values) => {
       console.log(values);
     },

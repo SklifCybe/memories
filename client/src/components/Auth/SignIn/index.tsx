@@ -1,7 +1,10 @@
 import { FC, ReactElement } from 'react';
 import { Typography, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
+import { GoogleLogin } from 'react-google-login';
+import GoogleIcon from '@mui/icons-material/Google';
+
+import { signInSchema } from '../validationSchemas';
 
 import { useStyles } from '../styles';
 
@@ -9,29 +12,27 @@ type SignInProps = {
   switchMode: () => void;
 };
 
+const initialValues = {
+  email: '',
+  password: '',
+};
+
 const SignIn: FC<SignInProps> = ({ switchMode }): ReactElement => {
   const classes = useStyles();
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: yup.object({
-      email: yup
-        .string()
-        .email('Enter a valid email')
-        .max(40, 'Email should be of maximum 40 characters length')
-        .required('Email is required'),
-      password: yup
-        .string()
-        .min(8, 'Password should be of minimum 8 characters length')
-        .max(32, 'Password should be of maximum 32 characters length')
-        .required('Password is required'),
-    }),
+    initialValues,
+    validationSchema: signInSchema,
     onSubmit: (values) => {
       console.log(values);
     },
   });
+
+  const successGoogleLogin = (res: any) => {
+    console.log(res);
+  };
+  const failGoogleLogin = () => {
+    console.error('Bad login. Try again.');
+  };
 
   return (
     <>
@@ -60,6 +61,24 @@ const SignIn: FC<SignInProps> = ({ switchMode }): ReactElement => {
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
+        />
+        <GoogleLogin
+          clientId="372984908748-eeij54jgr78i3g8o4tfb1ct0aa99ra0p.apps.googleusercontent.com"
+          onSuccess={successGoogleLogin}
+          onFailure={failGoogleLogin}
+          cookiePolicy="single_host_origin"
+          render={(renderProps) => (
+            <Button
+              className={classes.googleBtn}
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              startIcon={<GoogleIcon />}>
+              Google Sign In
+            </Button>
+          )}
         />
         <Button className={classes.submitButton} variant="outlined" type="submit">
           Sign In
