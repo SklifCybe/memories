@@ -11,8 +11,20 @@ const useStyles = makeStyles({
     padding: '.5rem 3rem .5rem 1rem',
   },
   title: {
-    marginRight: '2rem',
+    marginRight: '1rem',
   },
+  authBlock: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  userBlock: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingRight: '1rem'
+  },
+  userAvatar: {
+    paddingRight: '1rem'
+  }
 });
 
 export { useStyles };

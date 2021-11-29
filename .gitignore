@@ -9,3 +9,5 @@ server/.env
 
 yarn-debug.log*
 yarn-error.log*
+
+todo.txt

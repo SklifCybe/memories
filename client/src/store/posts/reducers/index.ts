@@ -1,6 +1,6 @@
 import {
   initialStateType,
-  ActionsType,
+  ActionTypes,
   GET_POSTS,
   CREATE_POST,
   UPDATE_POST,
@@ -12,7 +12,7 @@ const initialState: initialStateType = {
   posts: [],
 };
 
-export const postReducer = (state = initialState, action: ActionsType): initialStateType => {
+export const postReducer = (state = initialState, action: ActionTypes): initialStateType => {
   switch (action.type) {
     case GET_POSTS:
       return {

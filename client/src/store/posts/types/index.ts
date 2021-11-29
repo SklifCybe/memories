@@ -49,10 +49,10 @@ export type likePostType = {
   };
 };
 
-export type ActionsType = getPostsType | createPostType | updatePostType | deletePostType | likePostType;
+export type ActionTypes = getPostsType | createPostType | updatePostType | deletePostType | likePostType;
 
 export type initialStateType = {
   posts: Array<PostType>;
 };
 
-export type DispatchType = (action: ActionsType) => Dispatch<ActionsType>;
+export type DispatchType = (action: ActionTypes) => Dispatch<ActionTypes>;

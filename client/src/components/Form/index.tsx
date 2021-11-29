@@ -116,6 +116,11 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
         pictureMsg: '1',
       });
     }
+
+    // i don't want to push formik in this array, 
+    // because this useEffect go to inifitiy loop 
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPost]);
 
   return (
