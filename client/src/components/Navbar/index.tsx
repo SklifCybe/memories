@@ -43,11 +43,9 @@ const Navbar: FC = (): ReactElement => {
               />
               <Typography variant="body1">{user.fullName}</Typography>
             </div>
-            <Link to="/auth">
-              <Button color="error" variant="contained" onClick={handleLogout}>
-                Logout
-              </Button>
-            </Link>
+            <Button color="error" variant="contained" onClick={handleLogout}>
+              Logout
+            </Button>
           </>
         ) : (
           <Link to="/auth">

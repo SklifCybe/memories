@@ -2,6 +2,7 @@ import { FC, ReactElement } from 'react';
 import { Typography, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@mui/icons-material/Google';
 
 import { signInSchema } from '../validationSchemas';
@@ -28,10 +29,13 @@ const SignIn: FC<SignInProps> = ({ switchMode }): ReactElement => {
     },
   });
   const { authAC } = useActions();
+  const navigate = useNavigate();
 
   const successGoogleLogin = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     const { profileObj, tokenId: token } = res as GoogleLoginResponse;
     const { name: fullName, imageUrl: avatar } = profileObj;
+
+    navigate('/');
 
     authAC({ fullName, avatar, token });
   };

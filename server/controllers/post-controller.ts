@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { Model } from 'mongoose';
 
-import { PostMessage } from '../models/post-schema';
+import { PostMessage } from '../models/post-model';
 import { Post } from '../types/post-type';
 
 export const getPosts = async (_: Request, res: Response) => {

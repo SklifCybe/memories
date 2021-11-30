@@ -1,9 +1,10 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
 import { config } from 'dotenv';
 import { json, urlencoded } from 'body-parser';
-import cors from 'cors';
 import { postRouter } from './routes/post-route';
-import mongoose from 'mongoose';
+import { userRouter } from './routes/user-route';
 
 config();
 const PORT = process.env.PORT || 5050;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(json({ limit: '50mb' }));
 app.use(urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/posts', postRouter);
+app.use('/api/users', userRouter);
 
 mongoose
   .connect(MONGODB_URI)
