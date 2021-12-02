@@ -46,7 +46,7 @@ export const signup = async (req: Request, res: Response) => {
     if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords dont't match." });
     }
-
+    
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     const newUser = await User.create({
@@ -55,10 +55,11 @@ export const signup = async (req: Request, res: Response) => {
       fullName: `${firstName} ${lastName}`,
     });
 
-    const token = jwt.sign({ email: newUser.email, id: newUser._id }, secretKey, { expiresIn: '1h' });
-    
-    res.status(200).json({ result: newUser, token });
+    const token = jwt.sign({ email: newUser.email, id: newUser._id }, secretKey, {
+      expiresIn: '1h',
+    });
 
+    res.status(200).json({ result: newUser, token });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: 'Something went wrong.', errorMessage: error.message });

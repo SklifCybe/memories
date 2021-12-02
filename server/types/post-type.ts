@@ -4,6 +4,6 @@ export type Post = {
   creator: string,
   tags: Array<string>,
   selectedFile: string,
-  likeCount: number,
+  likes: Array<string>,
   createdAt: Date
 }

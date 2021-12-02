@@ -69,12 +69,19 @@ export const likePost = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const post = await PostMessage.findById(id);
+    const userId = String(req.userId);
 
     if (!post) {
       throw new Error('No the post.');
     }
 
-    post.likeCount += 1;
+    const index = post.likes.findIndex((like) => like === userId);
+
+    if (index === -1) {
+      post.likes.push(userId);
+    } else {
+      post.likes.filter((like) => like !== userId);
+    }
 
     await post.save();
 
