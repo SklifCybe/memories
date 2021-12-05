@@ -1,7 +1,11 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, {JwtPayload} from 'jsonwebtoken';
 
 const secretKey = process.env.JWT_SECRET ?? 'bad-key :(';
+
+type UserId = {
+  id: string;
+}
 
 export const auth: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -22,9 +26,7 @@ export const auth: RequestHandler = (req: Request, res: Response, next: NextFunc
     } else {
       decodeData = jwt.verify(token, secretKey);
 
-      // @ts-ignore
-      // may be fix later, idk :)
-      req.userId = decodeData?.id;
+      req.userId = (<UserId>decodeData).id;
     }
 
     next();
