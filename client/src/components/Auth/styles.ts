@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   googleBtn: {
-    marginTop: '1rem',
+    marginBottom: '1rem',
   },
 }));
 

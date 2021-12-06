@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     paddingRight: '1rem'
   },
   userAvatar: {
-    paddingRight: '1rem'
+    marginRight: '1rem',
+    backgroundColor: '#005EA2'
   }
 });
 

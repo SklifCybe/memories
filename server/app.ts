@@ -22,7 +22,7 @@ mongoose
   .connect(MONGODB_URI)
   .then(() =>
     app.listen(PORT, () => {
-      console.log(`Server runnig on port: ${PORT}`);
+      console.info(`Server runnig on port: ${PORT}`);
     }),
   )
   .catch((err: Error) => console.error(err.message));

@@ -27,3 +27,24 @@ export type initialStateType = {
 };
 
 export type DispatchType = (action: ActionTypes) => Dispatch<ActionTypes>;
+
+export type SignInForm = {
+  email: string;
+  password: string;
+};
+
+export type SignUpForm = {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  firstName: string;
+  lastName: string;
+};
+
+export type ResponseSignIn = {
+  result: {
+    avatar: string;
+    fullName: string;
+  }
+  token: string;
+}

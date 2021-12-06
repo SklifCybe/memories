@@ -3,6 +3,7 @@ import { Typography, TextField, Button, Grid } from '@mui/material';
 import { useFormik } from 'formik';
 
 import { signUpSchema } from '../validationSchemas';
+import { SignUpForm } from '../../../store/auth/types';
 
 import { useStyles } from '../styles';
 
@@ -10,7 +11,7 @@ type SignUpProps = {
   switchMode: () => void;
 };
 
-const initialValues = {
+const initialValues: SignUpForm = {
   email: '',
   password: '',
   repeatPassword: '',
@@ -30,7 +31,7 @@ const SignUp: FC<SignUpProps> = ({ switchMode }): ReactElement => {
 
   return (
     <>
-      <Typography variant="h6">Sign In</Typography>
+      <Typography variant="h6">Sign Up</Typography>
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
@@ -77,7 +78,7 @@ const SignUp: FC<SignUpProps> = ({ switchMode }): ReactElement => {
         <TextField
           name="password"
           label="Password"
-          type="password"
+          type="text"
           fullWidth
           margin="dense"
           required
@@ -89,7 +90,7 @@ const SignUp: FC<SignUpProps> = ({ switchMode }): ReactElement => {
         <TextField
           name="repeatPassword"
           label="Repeat Password"
-          type="password"
+          type="text"
           fullWidth
           margin="dense"
           required

@@ -1,28 +1,27 @@
-import axios from 'axios';
-
+import { API } from './';
 import { PostType } from '../store/posts/types';
 
-class PostsApi {
-  private ENDPOINT = 'http://localhost:5050/api/posts';
+class PostsApi extends API {
+  private ENDPOINT = '/posts';
 
   public getPosts() {
-    return axios.get(this.ENDPOINT);
+    return this.api.get(this.ENDPOINT);
   }
 
   public createPost(post: PostType) {
-    return axios.post(this.ENDPOINT, post);
+    return this.api.post(this.ENDPOINT, post);
   }
 
   public updatePost(id: string, post: PostType) {
-    return axios.patch(`${this.ENDPOINT}/${id}`, { post });
+    return this.api.patch(`${this.ENDPOINT}/${id}`, { post });
   }
 
   public deletePost(id: string) {
-    return axios.delete(`${this.ENDPOINT}/${id}`);
+    return this.api.delete(`${this.ENDPOINT}/${id}`);
   }
 
   public likePost(id: string) {
-    return axios.patch(`${this.ENDPOINT}/likePost/${id}`);
+    return this.api.patch(`${this.ENDPOINT}/likePost/${id}`);
   }
 }
 

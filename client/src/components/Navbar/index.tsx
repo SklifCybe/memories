@@ -36,11 +36,20 @@ const Navbar: FC = (): ReactElement => {
         {user ? (
           <>
             <div className={classes.userBlock}>
-              <Avatar
-                className={classes.userAvatar}
-                src={user.avatar}
-                alt={`${user.fullName} avatar`}
-              />
+              {user.avatar.trim() ? (
+                <Avatar
+                  className={classes.userAvatar}
+                  src={user.avatar}
+                  alt={`${user.fullName} avatar`}
+                />
+              ) : (
+                <Avatar
+                  className={classes.userAvatar}
+                  src={user.avatar}
+                  alt={`${user.fullName} avatar`}>
+                  {user.fullName[0].toUpperCase()}
+                </Avatar>
+              )}
               <Typography variant="body1">{user.fullName}</Typography>
             </div>
             <Button color="error" variant="contained" onClick={handleLogout}>
