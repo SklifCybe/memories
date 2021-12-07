@@ -1,5 +1,5 @@
 import { API } from './';
-import { SignInForm } from '../store/auth/types';
+import { SignInForm, SignUpForm } from '../store/auth/types';
 
 class AuthAPI extends API {
   private ENDPOINT = '/users';
@@ -8,8 +8,8 @@ class AuthAPI extends API {
     return this.api.post(`${this.ENDPOINT}/signin`, formData);
   }
 
-  public signup() {
-    return this.api.post(`${this.ENDPOINT}/signup`);
+  public signup(formData: SignUpForm) {
+    return this.api.post(`${this.ENDPOINT}/signup`, formData);
   }
 }
 

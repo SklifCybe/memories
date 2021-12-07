@@ -41,10 +41,10 @@ export type SignUpForm = {
   lastName: string;
 };
 
-export type ResponseSignIn = {
+export type AuthResponse = {
   result: {
     avatar: string;
     fullName: string;
-  }
+  };
   token: string;
-}
+};

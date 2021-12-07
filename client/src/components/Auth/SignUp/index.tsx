@@ -1,9 +1,11 @@
 import { FC, ReactElement } from 'react';
 import { Typography, TextField, Button, Grid } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { signUpSchema } from '../validationSchemas';
 import { SignUpForm } from '../../../store/auth/types';
+import { useActions } from '../../../hooks/useAction';
 
 import { useStyles } from '../styles';
 
@@ -21,11 +23,14 @@ const initialValues: SignUpForm = {
 
 const SignUp: FC<SignUpProps> = ({ switchMode }): ReactElement => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { signup } = useActions();
   const formik = useFormik({
     initialValues,
     validationSchema: signUpSchema,
     onSubmit: (values) => {
-      console.log(values);
+      signup(values);
+      navigate('/');
     },
   });
 

@@ -35,7 +35,7 @@ export const signin = async (req: Request, res: Response) => {
 };
 
 export const signup = async (req: Request, res: Response) => {
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
+  const { firstName, lastName, email, password, repeatPassword } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -44,7 +44,7 @@ export const signup = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'User alredy existing.' });
     }
 
-    if (password !== confirmPassword) {
+    if (password !== repeatPassword) {
       return res.status(400).json({ message: "Passwords dont't match." });
     }
 
@@ -60,7 +60,7 @@ export const signup = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
 
-    res.status(200).json({ result: newUser, token });
+    res.status(200).json({ result: new UserDTO(newUser), token });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: 'Something went wrong.', errorMessage: error.message });
