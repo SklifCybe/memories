@@ -4,12 +4,12 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { useActions } from '../../hooks/useAction';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { PostType } from '../../store/posts/types';
 
 import { useStyles } from './styles';
 
 type Values = {
-  creator: string;
   title: string;
   message: string;
   tags: string;
@@ -17,7 +17,6 @@ type Values = {
 };
 
 const initialValues: Values = {
-  creator: '',
   title: '',
   message: '',
   tags: '',
@@ -25,11 +24,6 @@ const initialValues: Values = {
 };
 
 const validationSchema = yup.object({
-  creator: yup
-    .string()
-    .required('Cretor field is required')
-    .min(2, 'Minimum number of characters is 2')
-    .max(20, 'Maximum number of characters is 20'),
   title: yup
     .string()
     .required('Title field is required')
@@ -53,6 +47,7 @@ type FormProps = {
 const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement => {
   const classes = useStyles();
   const { createPost, updatePost } = useActions();
+  const { user } = useTypedSelector((state) => state.auth);
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -60,19 +55,19 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
       let newPost = null;
       if (picture) {
         newPost = {
-          creator: values.creator,
           title: values.title,
           message: values.message,
           tags: values.tags.replaceAll(',', ' ').split(' '),
           selectedFile: picture.toString(),
+          name: user?.fullName ?? '',
         };
         createPost(newPost);
       } else {
         newPost = {
-          creator: values.creator,
           title: values.title,
           message: values.message,
           tags: values.tags.replaceAll(',', '').split(' '),
+          name: user?.fullName ?? '',
         };
         if (selectedPost && selectedPost._id) {
           updatePost(selectedPost._id, newPost);
@@ -109,7 +104,6 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
   React.useEffect(() => {
     if (selectedPost) {
       formik.setValues({
-        creator: selectedPost.creator,
         title: selectedPost.title,
         message: selectedPost.message,
         tags: selectedPost.tags.join(' '),
@@ -117,11 +111,21 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
       });
     }
 
-    // i don't want to push formik in this array, 
-    // because this useEffect go to inifitiy loop 
-    
+    // i don't want to push formik in this array,
+    // because this useEffect go to inifitiy loop
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPost]);
+
+  if (!user) {
+    return (
+      <Paper className={classes.signInText}>
+        <Container>
+          <Typography>Please Sign In to create your memories and likes other's memories</Typography>
+        </Container>
+      </Paper>
+    );
+  }
 
   return (
     <Paper>
@@ -130,16 +134,6 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
           {selectedPost ? 'Changing' : 'Creating'} a memories
         </Typography>
         <form onSubmit={formik.handleSubmit}>
-          <TextField
-            className={classes.field}
-            name="creator"
-            value={formik.values.creator}
-            onChange={formik.handleChange}
-            label="Creator"
-            fullWidth
-            error={formik.touched.creator && Boolean(formik.errors.creator)}
-            helperText={formik.touched.creator && formik.errors.creator}
-          />
           <TextField
             className={classes.field}
             name="title"

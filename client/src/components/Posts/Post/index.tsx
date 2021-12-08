@@ -48,7 +48,7 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
           gutterBottom
           variant="h5"
           component="div">
-          {post.creator}
+          {post.name}
         </Typography>
         <Typography
           color="#fff"

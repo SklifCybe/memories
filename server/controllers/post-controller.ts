@@ -19,7 +19,7 @@ export const createPost = async (req: Request, res: Response) => {
   try {
     const post: Post = req.body;
 
-    const newPost = await new PostMessage(post);
+    const newPost = new PostMessage({...post, creator: req.userId, createdAt: new Date().toISOString()});
 
     await newPost.save();
 
@@ -76,7 +76,7 @@ export const likePost = async (req: Request, res: Response) => {
     }
 
     const index = post.likes.findIndex((like) => like === userId);
-
+    
     if (index === -1) {
       post.likes.push(userId);
     } else {

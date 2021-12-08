@@ -10,5 +10,9 @@ export const useStyles = makeStyles({
   },
   btnField: {
     marginBottom: '.5rem !important',
-  }
+  },
+  signInText: {
+    padding: '2rem',
+    textAlign: 'center',
+  },
 });

@@ -1,11 +1,11 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
-import jwt, {JwtPayload} from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const secretKey = process.env.JWT_SECRET ?? 'bad-key :(';
 
 type UserId = {
   id: string;
-}
+};
 
 export const auth: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
   try {

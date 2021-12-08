@@ -10,7 +10,7 @@ export type PostType = {
   _id?: string;
   title: string;
   message: string;
-  creator: string;
+  name: string;
   tags: Array<string>;
   selectedFile?: string;
   likeCount?: number;
@@ -49,7 +49,12 @@ export type likePostType = {
   };
 };
 
-export type ActionTypes = getPostsType | createPostType | updatePostType | deletePostType | likePostType;
+export type ActionTypes =
+  | getPostsType
+  | createPostType
+  | updatePostType
+  | deletePostType
+  | likePostType;
 
 export type initialStateType = {
   posts: Array<PostType>;

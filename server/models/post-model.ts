@@ -5,6 +5,7 @@ import { Post } from '../types/post-type';
 const schema = new Schema<Post>({
   title: String,
   message: String,
+  name: String,
   creator: String,
   tags: [String],
   selectedFile: String,
