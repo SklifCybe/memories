@@ -2,15 +2,15 @@ import axios from 'axios';
 
 const baseURL = 'http://localhost:5050/api';
 
-export class API {
-  protected api = axios.create({ baseURL });
+export const api = axios.create({ baseURL });
 
-  constructor() {
-    const user = localStorage.getItem('userData');
+api.interceptors.request.use((req) => {
+  const user = localStorage.getItem('userData');
 
-    if (user) {
-      const { token } = JSON.parse(user);
-      this.api = axios.create({ baseURL, headers: { authorizatoin: `Bearer ${token}` } });
-    }
+  if (user && req.headers) {
+    const { token } = JSON.parse(user);
+    req.headers.authorization = `Bearer ${token}`;
   }
-}
+
+  return req;
+});

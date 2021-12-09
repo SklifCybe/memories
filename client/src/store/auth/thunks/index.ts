@@ -1,4 +1,4 @@
-import { authApi } from '../../../api/auth-api';
+import * as authApi from '../../../api/auth-api';
 import { authAC } from '../acitons';
 import { SignInForm, DispatchType, AuthUser, AuthResponse, SignUpForm } from '../types';
 

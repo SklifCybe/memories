@@ -1,16 +1,12 @@
-import { API } from './';
+import { api } from './';
 import { SignInForm, SignUpForm } from '../store/auth/types';
 
-class AuthAPI extends API {
-  private ENDPOINT = '/users';
+const ENDPOINT = '/users';
 
-  public signin(formData: SignInForm) {
-    return this.api.post(`${this.ENDPOINT}/signin`, formData);
-  }
+export const signin = (formData: SignInForm) => {
+  return api.post(`${ENDPOINT}/signin`, formData);
+};
 
-  public signup(formData: SignUpForm) {
-    return this.api.post(`${this.ENDPOINT}/signup`, formData);
-  }
-}
-
-export const authApi = new AuthAPI();
+export const signup = (formData: SignUpForm) => {
+  return api.post(`${ENDPOINT}/signup`, formData);
+};

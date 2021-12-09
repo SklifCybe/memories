@@ -1,4 +1,4 @@
-import { postsApi } from '../../../api/posts-api';
+import * as postsApi from '../../../api/posts-api';
 import { getPostsAC, createPostAC, updatePostAC, deletePostAC, likePostAC } from '../actions';
 import { DispatchType, PostType } from '../types';
 

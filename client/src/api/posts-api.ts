@@ -1,28 +1,24 @@
-import { API } from './';
+import { api } from './';
 import { PostType } from '../store/posts/types';
 
-class PostsApi extends API {
-  private ENDPOINT = '/posts';
+const ENDPOINT = '/posts';
 
-  public getPosts() {
-    return this.api.get(this.ENDPOINT);
-  }
+export const getPosts = () => {
+  return api.get(ENDPOINT);
+};
 
-  public createPost(post: PostType) {
-    return this.api.post(this.ENDPOINT, post);
-  }
+export const createPost = (post: PostType) => {
+  return api.post(ENDPOINT, post);
+};
 
-  public updatePost(id: string, post: PostType) {
-    return this.api.patch(`${this.ENDPOINT}/${id}`, { post });
-  }
+export const updatePost = (id: string, post: PostType) => {
+  return api.patch(`${ENDPOINT}/${id}`, { post });
+};
 
-  public deletePost(id: string) {
-    return this.api.delete(`${this.ENDPOINT}/${id}`);
-  }
+export const deletePost = (id: string) => {
+  return api.delete(`${ENDPOINT}/${id}`);
+};
 
-  public likePost(id: string) {
-    return this.api.patch(`${this.ENDPOINT}/likePost/${id}`);
-  }
-}
-
-export const postsApi = new PostsApi();
+export const likePost = (id: string) => {
+  return api.patch(`${ENDPOINT}/likePost/${id}`);
+};
