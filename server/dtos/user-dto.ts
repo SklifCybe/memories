@@ -4,7 +4,7 @@ export class UserDTO {
   private fullName;
   private avatar;
 
-  constructor(model: any) {
+  constructor(model: UserType) {
     this.avatar = model.avatar;
     this.fullName = model.fullName;
   }

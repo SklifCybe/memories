@@ -17,6 +17,13 @@ const Navbar: FC = (): ReactElement => {
     logoutAC();
   };
 
+  const getTwoLetterOfName = (fullName: string) => {
+    return fullName
+      .split(' ')
+      .map((i) => i[0].toUpperCase())
+      .join('');
+  };
+
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/">
@@ -47,7 +54,7 @@ const Navbar: FC = (): ReactElement => {
                   className={classes.userAvatar}
                   src={user.avatar}
                   alt={`${user.fullName} avatar`}>
-                  {user.fullName[0].toUpperCase()}
+                  {getTwoLetterOfName(user.fullName)}
                 </Avatar>
               )}
               <Typography variant="body1">{user.fullName}</Typography>
