@@ -1,8 +1,8 @@
 import { UserType } from '../types/user-type';
 
 export class UserDTO {
-  private fullName;
-  private avatar;
+  fullName: string;
+  avatar: string;
 
   constructor(model: UserType) {
     this.avatar = model.avatar;

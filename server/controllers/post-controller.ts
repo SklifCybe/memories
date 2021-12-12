@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 
 import { PostMessage } from '../models/post-model';
-import { Post } from '../types/post-type';
+import { PostType } from '../types/post-type';
 import { PostDTO } from '../dtos/post-dto';
 
 export const getPosts = async (_: Request, res: Response) => {
   try {
     const postsMessages = await PostMessage.find();
 
-    res.json({ result: postsMessages, message: 'Get success.' });
+    const posts = postsMessages.map((p) => new PostDTO(p));
+
+    res.json({ result: posts, message: 'Get success.' });
   } catch (err) {
     if (err instanceof Error) {
       res.status(404).json({ message: err.message });
@@ -18,7 +20,7 @@ export const getPosts = async (_: Request, res: Response) => {
 
 export const createPost = async (req: Request, res: Response) => {
   try {
-    const post: Post = req.body;
+    const post: PostType = req.body;
 
     const newPost = new PostMessage({
       ...post,
@@ -39,7 +41,7 @@ export const createPost = async (req: Request, res: Response) => {
 export const updatePost = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const post: Post = req.body.post;
+    const post: PostType = req.body.post;
 
     if (!post) {
       throw new Error('No the post.');

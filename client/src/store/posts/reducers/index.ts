@@ -28,19 +28,19 @@ export const postReducer = (state = initialState, action: ActionTypes): initialS
       return {
         ...state,
         posts: state.posts.map((post) =>
-          post._id === action.payload.id ? action.payload.updatePost : post,
+          post.id === action.payload.id ? action.payload.updatePost : post,
         ),
       };
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== action.payload.id),
+        posts: state.posts.filter((post) => post.id !== action.payload.id),
       };
     case LIKE_POST:
       return {
         ...state,
         posts: state.posts.map((post) => {
-          if (post._id === action.payload.id && post.likeCount) {
+          if (post.id === action.payload.id && post.likeCount) {
             post.likeCount += 1;
           }
 

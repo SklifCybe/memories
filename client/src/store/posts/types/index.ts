@@ -7,7 +7,7 @@ export const DELETE_POST = 'POST/DELETE_POST';
 export const LIKE_POST = 'POST/LIKE_POST';
 
 export type PostType = {
-  _id?: string;
+  id?: string;
   title: string;
   message: string;
   name: string;
@@ -61,3 +61,13 @@ export type initialStateType = {
 };
 
 export type DispatchType = (action: ActionTypes) => Dispatch<ActionTypes>;
+
+export type PostsResponse = {
+  message: string;
+  result: Array<PostType>;
+};
+
+export type PostResponse = {
+  message: string;
+  result: PostType;
+};

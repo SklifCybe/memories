@@ -69,8 +69,8 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
           tags: values.tags.replaceAll(',', '').split(' '),
           name: user?.fullName ?? '',
         };
-        if (selectedPost && selectedPost._id) {
-          updatePost(selectedPost._id, newPost);
+        if (selectedPost && selectedPost.id) {
+          updatePost(selectedPost.id, newPost);
         }
       }
 

@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
 
-import { Post } from '../types/post-type';
+import { PostType } from '../types/post-type';
 
-const schema = new Schema<Post>({
+const schema = new Schema<PostType>({
   title: String,
   message: String,
   name: String,
@@ -13,4 +13,4 @@ const schema = new Schema<Post>({
   createdAt: { type: Date, default: new Date() },
 });
 
-export const PostMessage = model<Post>('PostMessage', schema);
+export const PostMessage = model<PostType>('PostMessage', schema);

@@ -28,14 +28,14 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const { deletePost, likePost } = useActions();
 
   const handleDelete = () => {
-    if (window.confirm(`Will you want to delete post ${post.title}?`) && post._id) {
-      deletePost(post._id);
+    if (window.confirm(`Will you want to delete post ${post.title}?`) && post.id) {
+      deletePost(post.id);
     }
   };
 
   const handleLike = () => {
-    if (post._id) {
-      likePost(post._id);
+    if (post.id) {
+      likePost(post.id);
     }
   };
 

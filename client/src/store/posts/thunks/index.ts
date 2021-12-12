@@ -1,12 +1,12 @@
 import * as postsApi from '../../../api/posts-api';
 import { getPostsAC, createPostAC, updatePostAC, deletePostAC, likePostAC } from '../actions';
-import { DispatchType, PostType } from '../types';
+import { DispatchType, PostType, PostsResponse, PostResponse } from '../types';
 
 export const getPosts = () => async (dispatch: DispatchType) => {
   try {
-    const { data }: { data: Array<PostType> } = await postsApi.getPosts();
+    const { data }: { data: PostsResponse } = await postsApi.getPosts();
 
-    dispatch(getPostsAC(data));
+    dispatch(getPostsAC(data.result));
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
@@ -16,8 +16,9 @@ export const getPosts = () => async (dispatch: DispatchType) => {
 
 export const createPost = (post: PostType) => async (dispatch: DispatchType) => {
   try {
-    const { data }: { data: PostType } = await postsApi.createPost(post);
-    dispatch(createPostAC(data));
+    const { data }: { data: PostResponse } = await postsApi.createPost(post);
+
+    dispatch(createPostAC(data.result));
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
