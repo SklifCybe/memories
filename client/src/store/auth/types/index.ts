@@ -48,3 +48,7 @@ export type AuthResponse = {
   };
   token: string;
 };
+
+export type ErrorSignIn = {
+  message: string;
+};

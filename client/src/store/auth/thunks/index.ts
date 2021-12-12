@@ -1,12 +1,24 @@
 import * as authApi from '../../../api/auth-api';
 import { authAC } from '../acitons';
-import { SignInForm, DispatchType, AuthUser, AuthResponse, SignUpForm } from '../types';
+import { AxiosError } from 'axios';
+import {
+  SignInForm,
+  DispatchType,
+  AuthUser,
+  AuthResponse,
+  SignUpForm,
+  ErrorSignIn,
+} from '../types';
 
 const getUser = (data: AuthResponse): AuthUser => ({
   fullName: data.result.fullName,
   avatar: data.result.avatar,
   token: data.token,
 });
+
+const isAxiosError = (obj: any): obj is AxiosError<ErrorSignIn, null> => {
+  return true && 'response' in obj;
+};
 
 export const signin = (formData: SignInForm) => async (dispatch: DispatchType) => {
   try {
@@ -17,7 +29,11 @@ export const signin = (formData: SignInForm) => async (dispatch: DispatchType) =
     dispatch(authAC(user));
   } catch (err) {
     if (err instanceof Error) {
-      console.error(err.message);
+      if (isAxiosError(err)) {
+        alert(err.response?.data.message);
+      } else {
+        console.error(err.message);
+      }
     }
   }
 };
@@ -31,7 +47,11 @@ export const signup = (formData: SignUpForm) => async (dispatch: DispatchType) =
     dispatch(authAC(user));
   } catch (err) {
     if (err instanceof Error) {
-      console.error(err.message);
+      if (isAxiosError(err)) {
+        alert(err.response?.data.message);
+      } else {
+        console.error(err.message);
+      }
     }
   }
 };
