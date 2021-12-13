@@ -40,10 +40,9 @@ export const postReducer = (state = initialState, action: ActionTypes): initialS
       return {
         ...state,
         posts: state.posts.map((post) => {
-          if (post.id === action.payload.id && post.likeCount) {
-            post.likeCount += 1;
+          if (post.id === action.payload.postId && post.likes) {
+            post.likes = [...action.payload.likes];
           }
-
           return post;
         }),
       };

@@ -4,6 +4,7 @@ export const AUTH = 'AUTH/AUTH';
 export const LOGOUT = 'AUTH/LOGOUT';
 
 export type AuthUser = {
+  id: string;
   fullName: string;
   avatar: string;
   token: string;
@@ -43,8 +44,9 @@ export type SignUpForm = {
 
 export type AuthResponse = {
   result: {
-    avatar: string;
+    id: string;
     fullName: string;
+    avatar: string;
   };
   token: string;
 };

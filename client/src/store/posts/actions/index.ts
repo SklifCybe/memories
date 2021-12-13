@@ -7,7 +7,7 @@ import {
   GET_POSTS,
   CREATE_POST,
   UPDATE_POST,
-  DELETE_POST
+  DELETE_POST,
 } from '../types';
 
 export const getPostsAC = (posts: Array<PostType>): getPostsType => ({
@@ -35,10 +35,11 @@ export const deletePostAC = (id: string): deletePostType => ({
   },
 });
 
-export const likePostAC = (id: string): likePostType => ({
+export const likePostAC = (postId: string, likes: Array<string>): likePostType => ({
   type: LIKE_POST,
   payload: {
-    id,
+    postId,
+    likes
   },
 });
 

@@ -48,10 +48,11 @@ export const deletePost = (id: string) => async (dispatch: DispatchType) => {
   }
 };
 
-export const likePost = (id: string) => async (dispatch: DispatchType) => {
+export const likePost = (postId: string) => async (dispatch: DispatchType) => {
   try {
-    await postsApi.likePost(id);
-    dispatch(likePostAC(id));
+    const { data }: { data: PostResponse } = await postsApi.likePost(postId);
+
+    dispatch(likePostAC(postId, data.result?.likes || []));
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);

@@ -11,6 +11,7 @@ import {
 } from '../types';
 
 const getUser = (data: AuthResponse): AuthUser => ({
+  id: data.result.id,
   fullName: data.result.fullName,
   avatar: data.result.avatar,
   token: data.token,

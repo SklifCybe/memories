@@ -9,11 +9,12 @@ export const LIKE_POST = 'POST/LIKE_POST';
 export type PostType = {
   id?: string;
   title: string;
+  creator?: string;
   message: string;
   name: string;
   tags: Array<string>;
   selectedFile?: string;
-  likeCount?: number;
+  likes?: Array<string>;
   createdAt?: Date;
 };
 
@@ -45,7 +46,8 @@ export type deletePostType = {
 export type likePostType = {
   type: ReturnType<() => typeof LIKE_POST>;
   payload: {
-    id: string;
+    postId: string;
+    likes: Array<string>;
   };
 };
 

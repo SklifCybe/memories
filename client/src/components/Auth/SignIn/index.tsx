@@ -1,9 +1,5 @@
 import { FC, ReactElement } from 'react';
-import {
-  Typography,
-  TextField,
-  Button,
-} from '@mui/material';
+import { Typography, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
@@ -40,11 +36,11 @@ const SignIn: FC<SignInProps> = ({ switchMode }): ReactElement => {
 
   const successGoogleLogin = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     const { profileObj, tokenId: token } = res as GoogleLoginResponse;
-    const { name: fullName, imageUrl: avatar } = profileObj;
+    const { name: fullName, imageUrl: avatar, googleId: id } = profileObj;
 
     navigate('/');
 
-    authAC({ fullName, avatar, token });
+    authAC({ id, fullName, token, avatar });
   };
 
   const failGoogleLogin = () => {

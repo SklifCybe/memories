@@ -93,7 +93,7 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
         <div className={classes.btnAction}>
           <Button size="small" color="primary" onClick={handleLike}>
             <LikeIcon />
-            &nbsp;Like {post.likeCount}&nbsp;
+            &nbsp;Like {post?.likes?.length}&nbsp;
           </Button>
         </div>
         <div className={classes.btnAction}>
