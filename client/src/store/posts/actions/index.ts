@@ -1,4 +1,10 @@
-import { deletePostType, likePostType, LIKE_POST, PostType } from '../types';
+import {
+  deletePostType,
+  likePostType,
+  LIKE_POST,
+  PostType,
+  toogleDisabledBtnLikeType,
+} from '../types';
 
 import {
   getPostsType,
@@ -8,6 +14,7 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
+  TOOGLE_DISABLED_BTN_LIKE,
 } from '../types';
 
 export const getPostsAC = (posts: Array<PostType>): getPostsType => ({
@@ -39,7 +46,13 @@ export const likePostAC = (postId: string, likes: Array<string>): likePostType =
   type: LIKE_POST,
   payload: {
     postId,
-    likes
+    likes,
   },
 });
 
+export const toogleDisabledBtnLike = (postId: string): toogleDisabledBtnLikeType => ({
+  type: TOOGLE_DISABLED_BTN_LIKE,
+  payload: {
+    postId,
+  },
+});

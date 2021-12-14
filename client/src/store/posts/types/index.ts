@@ -5,6 +5,7 @@ export const CREATE_POST = 'POST/CREATE_POST';
 export const UPDATE_POST = 'POST/UPDATE_POST';
 export const DELETE_POST = 'POST/DELETE_POST';
 export const LIKE_POST = 'POST/LIKE_POST';
+export const TOOGLE_DISABLED_BTN_LIKE = 'POST/TOOGLE_DISABLED_BTN_LIKE';
 
 export type PostType = {
   id?: string;
@@ -16,6 +17,7 @@ export type PostType = {
   selectedFile?: string;
   likes?: Array<string>;
   createdAt?: Date;
+  isLikeDisabled: boolean;
 };
 
 export type getPostsType = {
@@ -51,12 +53,20 @@ export type likePostType = {
   };
 };
 
+export type toogleDisabledBtnLikeType = {
+  type: ReturnType<() => typeof TOOGLE_DISABLED_BTN_LIKE>;
+  payload: {
+    postId: string;
+  };
+};
+
 export type ActionTypes =
   | getPostsType
   | createPostType
   | updatePostType
   | deletePostType
-  | likePostType;
+  | likePostType
+  | toogleDisabledBtnLikeType;
 
 export type initialStateType = {
   posts: Array<PostType>;

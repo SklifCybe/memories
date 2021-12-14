@@ -60,6 +60,7 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
           tags: values.tags.replaceAll(',', ' ').split(' '),
           selectedFile: picture.toString(),
           name: user?.fullName ?? '',
+          isLikeDisabled: false,
         };
         createPost(newPost);
       } else {
@@ -68,6 +69,7 @@ const Form: FC<FormProps> = ({ selectedPost, setSelectedPost }): ReactElement =>
           message: values.message,
           tags: values.tags.replaceAll(',', '').split(' '),
           name: user?.fullName ?? '',
+          isLikeDisabled: false,
         };
         if (selectedPost && selectedPost.id) {
           updatePost(selectedPost.id, newPost);

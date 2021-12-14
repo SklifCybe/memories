@@ -6,6 +6,7 @@ import {
   UPDATE_POST,
   DELETE_POST,
   LIKE_POST,
+  TOOGLE_DISABLED_BTN_LIKE,
 } from '../types';
 
 const initialState: initialStateType = {
@@ -42,6 +43,16 @@ export const postReducer = (state = initialState, action: ActionTypes): initialS
         posts: state.posts.map((post) => {
           if (post.id === action.payload.postId && post.likes) {
             post.likes = [...action.payload.likes];
+          }
+          return post;
+        }),
+      };
+    case TOOGLE_DISABLED_BTN_LIKE:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (action.payload.postId === post.id) {
+            post.isLikeDisabled = !post.isLikeDisabled;
           }
           return post;
         }),

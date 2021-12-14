@@ -1,5 +1,12 @@
 import * as postsApi from '../../../api/posts-api';
-import { getPostsAC, createPostAC, updatePostAC, deletePostAC, likePostAC } from '../actions';
+import {
+  getPostsAC,
+  createPostAC,
+  updatePostAC,
+  deletePostAC,
+  likePostAC,
+  toogleDisabledBtnLike,
+} from '../actions';
 import { DispatchType, PostType, PostsResponse, PostResponse } from '../types';
 
 export const getPosts = () => async (dispatch: DispatchType) => {
@@ -50,7 +57,9 @@ export const deletePost = (id: string) => async (dispatch: DispatchType) => {
 
 export const likePost = (postId: string) => async (dispatch: DispatchType) => {
   try {
+    dispatch(toogleDisabledBtnLike(postId));
     const { data }: { data: PostResponse } = await postsApi.likePost(postId);
+    dispatch(toogleDisabledBtnLike(postId));
 
     dispatch(likePostAC(postId, data.result?.likes || []));
   } catch (err) {

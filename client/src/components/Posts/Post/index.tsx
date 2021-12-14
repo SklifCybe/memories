@@ -91,7 +91,7 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
       </CardContent>
       <CardActions className={classes.cardAction}>
         <div className={classes.btnAction}>
-          <Button size="small" color="primary" onClick={handleLike}>
+          <Button size="small" color="primary" onClick={handleLike} disabled={post.isLikeDisabled}>
             <LikeIcon />
             &nbsp;Like {post?.likes?.length}&nbsp;
           </Button>
