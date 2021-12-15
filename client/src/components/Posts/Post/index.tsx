@@ -9,12 +9,12 @@ import {
   IconButton,
 } from '@mui/material';
 import moment from 'moment';
-import DeleteIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import LikeIcon from '@mui/icons-material/ThumbUpOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHorizOutlined';
 
 import { PostType } from '../../../store/posts/types';
 import { useActions } from '../../../hooks/useAction';
+import { DeleteModal } from '../../DeleteModal';
 
 import { useStyles } from './styles';
 
@@ -28,7 +28,7 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const { deletePost, likePost } = useActions();
 
   const handleDelete = () => {
-    if (window.confirm(`Will you want to delete post ${post.title}?`) && post.id) {
+    if (post.id) {
       deletePost(post.id);
     }
   };
@@ -97,10 +97,7 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
           </Button>
         </div>
         <div className={classes.btnAction}>
-          <Button size="small" color="primary" onClick={handleDelete}>
-            <DeleteIcon />
-            &nbsp;Delete&nbsp;
-          </Button>
+          <DeleteModal handleDelete={handleDelete} postTitle={post.title} />
         </div>
       </CardActions>
     </Card>

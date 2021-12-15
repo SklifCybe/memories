@@ -50,10 +50,14 @@ export const signup = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcryptjs.hash(password, salt);
 
+    const fullName = `${firstName[0].toUpperCase() + firstName.slice(1)} ${
+      lastName[0].toUpperCase() + lastName.slice(1)
+    }`;
+
     const newUser = await User.create({
       email,
       password: hashedPassword,
-      fullName: `${firstName} ${lastName}`,
+      fullName,
     });
 
     const token = jwt.sign({ email: newUser.email, id: newUser._id }, secretKey, {
