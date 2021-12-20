@@ -26,10 +26,6 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  btnAction: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   creatorField: {
     position: 'absolute',
     top: '10px',

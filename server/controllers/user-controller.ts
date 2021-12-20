@@ -24,6 +24,8 @@ export const signin = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'Invalid credentials.' });
     }
 
+    console.log('hello world');
+
     const token = jwt.sign({ email, id: existingUser._id }, secretKey, { expiresIn: '1h' });
 
     res.status(200).json({ result: new UserDTO(existingUser), token });

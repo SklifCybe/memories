@@ -1,6 +1,7 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useAction';
@@ -23,6 +24,16 @@ const Navbar: FC = (): ReactElement => {
       .map((i) => i[0].toUpperCase())
       .join('');
   };
+
+  useEffect(() => {
+    if (user) {
+      const { exp } = jwtDecode<JwtPayload>(user.token);
+      // this's not magic number, this's for correct view timestamp
+      if (exp && exp * 1000 <= Date.now()) {
+        logoutAC();
+      }
+    }
+  }, []);
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">

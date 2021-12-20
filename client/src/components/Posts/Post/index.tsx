@@ -14,6 +14,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHorizOutlined';
 
 import { PostType } from '../../../store/posts/types';
 import { useActions } from '../../../hooks/useAction';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { DeleteModal } from '../../DeleteModal';
 
 import { useStyles } from './styles';
@@ -26,6 +27,7 @@ type PostProps = {
 const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
   const classes = useStyles();
   const { deletePost, likePost } = useActions();
+  const userid = useTypedSelector(({ auth }) => auth.user?.id);
 
   const handleDelete = () => {
     if (post.id) {
@@ -58,14 +60,16 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
           component="div">
           {moment(post.createdAt).fromNow()}
         </Typography>
-        <div className={classes.horizBlockIcon}>
-          <IconButton
-            className={classes.horizIcon}
-            size="small"
-            onClick={() => setSelectedPost(post)}>
-            <MoreHorizIcon />
-          </IconButton>
-        </div>
+        {userid === post.creator && (
+          <div className={classes.horizBlockIcon}>
+            <IconButton
+              className={classes.horizIcon}
+              size="small"
+              onClick={() => setSelectedPost(post)}>
+              <MoreHorizIcon />
+            </IconButton>
+          </div>
+        )}
         <CardMedia
           component="img"
           className={classes.picture}
@@ -90,15 +94,13 @@ const Post: FC<PostProps> = ({ post, setSelectedPost }): ReactElement => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardAction}>
-        <div className={classes.btnAction}>
-          <Button size="small" color="primary" onClick={handleLike} disabled={post.isLikeDisabled}>
-            <LikeIcon />
-            &nbsp;Like {post?.likes?.length}&nbsp;
-          </Button>
-        </div>
-        <div className={classes.btnAction}>
+        <Button size="small" color="primary" onClick={handleLike} disabled={post.isLikeDisabled}>
+          <LikeIcon />
+          &nbsp;Like {post?.likes?.length}&nbsp;
+        </Button>
+        {userid === post.creator && (
           <DeleteModal handleDelete={handleDelete} postTitle={post.title} />
-        </div>
+        )}
       </CardActions>
     </Card>
   );
